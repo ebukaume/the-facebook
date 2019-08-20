@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'user can see homepage' do
+RSpec.describe 'homepage;' do
   scenario 'user sees home banner' do
     visit(root_path)
     expect(page).to have_content "facebook"
