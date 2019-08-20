@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     resource :likes, only: [:create, :destroy]
   end
 
-  get ":user_id/friends", to: "friends#index"
+  get ':user_id/friends', to: 'friends#index'
+  
+  root 'home#index'
 end
