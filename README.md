@@ -8,7 +8,7 @@ The-facebook is a collaborative project by [Denis Cuenca Brex](https://github.co
 
 - Ruby 2.6.3
 - Rails 5.2.3
-- Postgresql
+- Postgresql >= 0.18  and < 2.0
 - Bootstrap 4x
 
 ## Usage
