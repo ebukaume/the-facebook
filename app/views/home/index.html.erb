@@ -38,3 +38,56 @@
     <br>
     <h5 >Find more of what you're looking for with Facebook Search.</h5>
 </div>
+<div class="col-md-5">
+    <h2>Sign Up</h2>
+    <h4>It’s quick and easy.</h4>
+    
+    
+    <%= form_for :user, :html => {:class => "form-horizontal center", :style => 'padding-top:1em;'} do |f| %>
+    <div class="form-inline">
+    <div class="form-group">
+        <div class="col-md-8" style="padding-right:1.5em;">
+        <%= f.text_field :fname, class: "form-control", placeholder: "First name" %>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8">
+        <%= f.text_field :lname, class: "form-control", placeholder: "Last name" %>
+        </div>
+    </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <div class="col-md-9">
+        <%= f.text_field :email, class: "form-control", placeholder: "Email" %>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-9">
+        <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+        </div>
+    </div>
+    <div class="col-md">
+    <div class="col-3">
+            <%= f.label :birth, "Birthday" %>
+        </div>
+    <%= f.date_select :birthday, {order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
+    </div>
+    <br>
+    <div class="col-md">
+        <div class="col-3">
+        <%= f.label :genders, "Gender" %>
+        </div>
+        <%= f.radio_button :gender, 'female', :checked => false %> Female
+        <%= f.radio_button :gender, 'male', :checked => false %> Male
+        <%= f.radio_button :gender, 'custom', :checked => false %> Custom
+    </div>
+
+    <div class="button">
+    <br>
+    <p>By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.</p>
+    <%= f.submit "Sign Up", class: "btn btn-success"%>  
+    </div>
+    <% end %>
+    </div>
+    </div>
