@@ -1,0 +1,7 @@
+Started GET "/" for ::1 at 2019-08-23 16:32:29 +0100
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (212.7ms)
+Completed 200 OK in 4671ms (Views: 4660.6ms | ActiveRecord: 0.0ms)
+
+
