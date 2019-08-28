@@ -4007,3 +4007,4 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 6029ms (Views: 5118.6ms | ActiveRecord: 28.6ms)
 
 
+  [1m[35m (180.5ms)[0m  [1m[31mROLLBACK[0m
