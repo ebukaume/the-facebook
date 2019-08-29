@@ -1,0 +1,17 @@
+<div class="col-md-6">
+    <%= form_tag(user_session_path, method: :post, class: "form-inline", style: 'padding:0.5em;') do %>
+    <div class="form-group">
+        <div class="col-3">
+            <%= label_tag(:email, "Email", style: 'color:white;') %>
+        </div>
+        <%= email_field_tag 'user[email]' %>
+    </div>
+    <div class="form-group">
+        <div class="col-3">
+            <%= label_tag(:password, "Password", style: 'color:white;') %>
+        </div>
+        <%= password_field_tag 'user[password]' %> 
+        <%= button_tag "Log In", class:"btn-primary" %>
+    </div>
+    <%end%>
+</div>

@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true, length: {within: 2..50}
   validates :last_name, presence: true, length: {within: 2..50}
-  validates :email, presence: true
-  validates :sex, presence: true
+  validates :email, presence: true, format: Devise::email_regexp
+  validates :sex, presence: true, inclusion: { in: %w(Male Female Custom) }
   validates :dob, presence: true
 
   has_many :posts, foreign_key: 'author_id'
