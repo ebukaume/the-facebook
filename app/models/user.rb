@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   self.primary_key = 'id'
+  
   before_create { self.email.strip.downcase! }
   before_create { build_gravatar_image_url }
   
