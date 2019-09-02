@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :users, only: [:show, :index]
   # devise_for :users, path: "",
   #  path_names: {
   #   sign_in: :login, 
@@ -12,9 +13,7 @@ Rails.application.routes.draw do
     resource :likes, only: [:create, :destroy]
   end
 
-  get '/users', to: 'users#index'
   get '/friends', to: 'users#friends'
-  get '/:id', to: 'users#show'
   
   root 'home#index'
 end
