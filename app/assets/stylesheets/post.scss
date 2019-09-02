@@ -1,0 +1,21 @@
+.post{
+	font-size: 0.90rem;
+}
+.interactions{
+    border-bottom: 1px solid rgb(206, 198, 198);
+}
+
+.comment-well,
+.new-comment{
+	font-size: 0.85rem;
+	border-radius: 40px;
+	background: #e9ebee;
+}
+
+.new-comment:focus{
+	background: #e9ebee;
+}
+
+.comment-interactions *{
+	font-size: 0.85rem
+}

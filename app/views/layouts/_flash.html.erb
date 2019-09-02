@@ -1,5 +1,17 @@
 <% if flash[:notice] %>
-  <p class="notice"><%= notice %></p>
-<% elsif flash[:alert] %>
-  <p class="alert"><%= alert %></p>
+  <div class='alert alert-info'>
+    <div class='container'>
+      <div class='row'>
+        <div class="col-md-6 mx-auto text-center"><%= notice %></div>
+      </div>
+    </div>
+  </div>
+<% elsif flash[:alert] && params[:controller] != "devise/sessions" %>
+  <div class='alert alert-danger'>
+    <div class='container'>
+      <div class='row'>
+        <div class="col-md-6 mx-auto text-center"><%= alert %></div>
+      </div>
+    </div>
+  </div>
 <% end %>

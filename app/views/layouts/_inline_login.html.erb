@@ -1,17 +1,22 @@
-<div class="col-md-6">
-    <%= form_tag(user_session_path, method: :post, class: "form-inline", style: 'padding:0.5em;') do %>
-    <div class="form-group">
-        <div class="col-3">
-            <%= label_tag(:email, "Email", style: 'color:white;') %>
-        </div>
-        <%= email_field_tag 'user[email]' %>
+<div class="navbar-nav ml-auto">
+  <%= form_tag(user_session_path, method: :post, class: "form-inline float-right pt-2") do %>
+    <div class='form-row'>
+      <div class="col">
+          <div>
+            <%= label_tag :user_email, 'Email', class: 'float-left inline-form-label' %>
+          </div>
+          <%= email_field_tag 'user[email]', '', class: 'form-control-xs' %>
+      </div>
+      <div class="col">
+          <div>
+            <%= label_tag :user_password, 'Password', class: 'float-left inline-form-label' %>
+          </div>
+          <%= password_field_tag 'user[password]', '', class: 'form-control-xs' %>
+          <%= link_to 'Forgot Password?', '#', class: 'forgot-password' %>
+      </div> 
+      <div class='col mt-4'>
+        <%= button_tag "Log In", class:"btn btn-primary btn-sm inline-form-button" %>
+      </div>
     </div>
-    <div class="form-group">
-        <div class="col-3">
-            <%= label_tag(:password, "Password", style: 'color:white;') %>
-        </div>
-        <%= password_field_tag 'user[password]' %> 
-        <%= button_tag "Log In", class:"btn-primary" %>
-    </div>
-    <%end%>
+  <%end%>
 </div>

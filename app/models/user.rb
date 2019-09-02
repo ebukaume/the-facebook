@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   self.primary_key = 'id'
-  before_create { self.image = 'todo_gravatar_later' }
+  before_create { self.email.strip.downcase! }
+  before_create { build_gravatar_image_url }
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -14,4 +15,10 @@ class User < ApplicationRecord
   validates :dob, presence: true
 
   has_many :posts, foreign_key: 'author_id'
+
+  private
+
+  def build_gravatar_image_url
+    self.image = "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}"
+  end
 end
