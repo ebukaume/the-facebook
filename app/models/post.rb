@@ -6,5 +6,7 @@ class Post < ApplicationRecord
   belongs_to :author, class_name: 'User'
 
   scope :visible_to_user,  -> {  }
+  scope :authored_by,  ->(user) { where(author: user) }
+
   default_scope -> { order('updated_at DESC').includes(:author) }
 end

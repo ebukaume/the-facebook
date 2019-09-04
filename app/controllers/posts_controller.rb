@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :verify_authorship, only: [:edit, :update, :destroy]
-  before_action :fetch_posts, only: [:create, :edit, :update, :destroy]
+  before_action :fetch_post, :verify_authorship, only: [:edit, :update, :destroy]
+  before_action :fetch_posts, only: [:create, :edit]
 
   def create
     create_post post_params
@@ -49,13 +49,15 @@ class PostsController < ApplicationController
   end
 
   def verify_authorship
-    unless @post = Post.find_by(id: params[:id])
-      flash[:notice] = "Oops! the post you wish to interact with has been removed or never existed!"
-      redirect_to root_path
-    end
-
     unless post_authored_by_current_user
       flash[:danger] = "Sorry, but you are not the author of this post!"
+      redirect_to root_path
+    end
+  end
+
+  def fetch_post
+    unless @post = Post.find_by(id: params[:id])
+      flash[:notice] = "Oops! the post you wish to interact with has been removed or never existed!"
       redirect_to root_path
     end
   end

@@ -2,6 +2,7 @@ class User < ApplicationRecord
   self.primary_key = 'id'
   
   before_create { self.email.strip.downcase! }
+  before_create :capitalize_names
   before_create { build_gravatar_image_url }
   
   # Include default devise modules. Others available are:
@@ -27,8 +28,12 @@ class User < ApplicationRecord
 
   private
 
+  def capitalize_names
+    self.first_name.capitalize!
+    self.last_name.capitalize!
+  end
+
   def build_gravatar_image_url
     self.image = "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}"
   end
-
 end
