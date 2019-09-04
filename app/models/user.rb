@@ -17,9 +17,18 @@ class User < ApplicationRecord
 
   has_many :posts, foreign_key: 'author_id'
 
+  def fullname
+    "#{first_name} #{last_name}"
+  end
+
+  def create_post(post_params)
+    self.posts.create post_params
+  end
+
   private
 
   def build_gravatar_image_url
     self.image = "https://gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}"
   end
+
 end
