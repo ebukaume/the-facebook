@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :fetch_post, :verify_authorship, only: [:edit, :update, :destroy]
+  before_action :fetch_post, only: [:edit, :update, :destroy]
   before_action :fetch_posts, only: [:create, :edit]
 
   def create
@@ -7,15 +7,22 @@ class PostsController < ApplicationController
   end
 
   def edit
-    render 'home/index'
+    if @post.can_edit?(current_user)
+      render 'home/index'
+    else
+      flash[:post_notice] = "You are not authorized to edit this post"
+      redirect_to root_path
+    end
   end
 
   def update
-    update_post post_params
+    flash[:post_notice] = @post.update_post(current_user, post_params)
+    redirect_to root_path
   end
 
   def destroy
-    destroy_post
+    flash[:post_notice] = @post.delete_post(current_user)
+    redirect_to root_path
   end
 
   private
@@ -23,7 +30,7 @@ class PostsController < ApplicationController
   def create_post(post_params)
     @post = current_user.create_post(post_params)
     if @post.errors.none?
-      flash[:post_success] = "Post successfuly created!" 
+      flash[:post_notice] = "Post successfuly created!" 
       @post = Post.new
       redirect_to root_path
     else
@@ -31,43 +38,15 @@ class PostsController < ApplicationController
     end
   end
 
-  def update_post(post_params)
-    if @post.update_attributes(post_params)
-      flash[:post_success] = "Post successfuly edited!" 
-      @post = Post.new
-    else
-      flash[:danger] = "Oops! Please make sure the content is at least 2 character long!" 
-    end
-    redirect_to root_path
-  end
-
-  def destroy_post
-    if @post.destroy 
-      flash[:post_success] = "Post successfuly deleted!"
-      redirect_to root_path
-    end
-  end
-
-  def verify_authorship
-    unless post_authored_by_current_user
-      flash[:danger] = "Sorry, but you are not the author of this post!"
-      redirect_to root_path
-    end
-  end
-
   def fetch_post
     unless @post = Post.find_by(id: params[:id])
-      flash[:notice] = "Oops! the post you wish to interact with has been removed or never existed!"
+      flash[:post_notice] = "Oops! the post you wish to interact with has been removed or never existed!"
       redirect_to root_path
     end
   end
 
   def fetch_posts
     @posts = Post.visible_to_user
-  end
-
-  def post_authored_by_current_user
-    @post.author == current_user
   end
 
   def post_params

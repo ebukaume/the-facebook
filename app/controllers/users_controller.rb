@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :fetch_users, only: :index
 
   def index
-
   end
 
   def show
@@ -13,7 +12,7 @@ class UsersController < ApplicationController
 
   def fetch_user
     unless @user = User.find_by(id: params[:id])
-      flash[:danger] = "Oops! It seems that user has been kicked out or never existed in our record!"
+      flash[:danger] = "Oops! It seems the user you are looking for has been kicked out or never existed in our record!"
       redirect_to root_path
     end
   end
