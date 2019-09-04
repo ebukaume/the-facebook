@@ -5,5 +5,6 @@ class Post < ApplicationRecord
 
   belongs_to :author, class_name: 'User'
 
-  scope :recent,  -> { order('updated_at DESC') }
+  scope :visible_to_user,  -> {  }
+  default_scope -> { order('updated_at DESC').includes(:author) }
 end

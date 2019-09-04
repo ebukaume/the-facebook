@@ -1,11 +1,9 @@
 class PostsController < ApplicationController
-  before_action :fetch_post, only: [:edit, :update, :destroy]
-  before_action :fetch_posts, only: :edit
-  after_action :fetch_posts, only: [:create, :update, :destroy]
+  before_action :verify_authorship, only: [:edit, :update, :destroy]
+  before_action :fetch_posts, only: [:create, :edit, :update, :destroy]
 
   def create
     create_post post_params
-    render 'home/index'
   end
 
   def edit
@@ -14,10 +12,10 @@ class PostsController < ApplicationController
 
   def update
     update_post post_params
-    redirect_to root_path
   end
 
   def destroy
+    destroy_post
   end
 
   private
@@ -25,24 +23,49 @@ class PostsController < ApplicationController
   def create_post(post_params)
     @post = current_user.create_post(post_params)
     if @post.errors.none?
-      flash.now[:post_success] = "Post successfuly created!" 
+      flash[:post_success] = "Post successfuly created!" 
       @post = Post.new
+      redirect_to root_path
+    else
+      render 'home/index'
     end
   end
 
   def update_post(post_params)
-    if @post.update(post_params)
-      flash.now[:post_success] = "Post successfuly edited!" 
+    if @post.update_attributes(post_params)
+      flash[:post_success] = "Post successfuly edited!" 
       @post = Post.new
+    else
+      flash[:danger] = "Oops! Please make sure the content is at least 2 character long!" 
+    end
+    redirect_to root_path
+  end
+
+  def destroy_post
+    if @post.destroy 
+      flash[:post_success] = "Post successfuly deleted!"
+      redirect_to root_path
     end
   end
 
-  def fetch_post
-    @post = Post.find(params[:id])
+  def verify_authorship
+    unless @post = Post.find_by(id: params[:id])
+      flash[:notice] = "Oops! the post you wish to interact with has been removed or never existed!"
+      redirect_to root_path
+    end
+
+    unless post_authored_by_current_user
+      flash[:danger] = "Sorry, but you are not the author of this post!"
+      redirect_to root_path
+    end
   end
 
   def fetch_posts
-    @posts = Post.recent
+    @posts = Post.visible_to_user
+  end
+
+  def post_authored_by_current_user
+    @post.author == current_user
   end
 
   def post_params

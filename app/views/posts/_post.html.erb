@@ -20,23 +20,16 @@
         <span class='float-right text-secondary'>17 comments</span>
       </div>
       <div class='interactions row mb-3'>
-        <button class='btn btn-sm btn-default btn-block col-sm-4 mt-2'>
-          <span><%=icon 'far', 'thumbs-up' %> Like</span>
-        </button>
-        <% if authored_by_current_user(post) %>  
-          <button class='btn btn-sm btn-default btn-block col-sm-4'>
-            <span> <%=icon 'far', 'edit' %> <%= link_to "Edit", edit_post_path(post) %></span>
-          </button>
+        <%= link_to content_tag(:i, " Like", class: 'far fa-thumbs-up'), likes_path(post: post), method: :post, 
+          class: "btn btn-sm btn-default btn-block col-sm-4 mt-2" %>
 
-          <%= button_to %>
+        <% if authored_by_current_user(post) %> 
+          <%= link_to content_tag(:i, " Edit", class: 'far fa-edit'), edit_post_path(post), 
+          class: "btn btn-sm btn-default btn-block col-sm-4" %>
 
-          <button class='btn btn-sm btn-default btn-block col-sm-4 delete'>
-            <%=icon 'far', 'trash-alt' %>
-            <span> 
-              <%= link_to "Delete", post, method: :delete, 
-              data: { confirm: "Do you want to permanently delete this post along with all it's comments and likes?" } %>
-            </span>
-          </button>
+          <%= link_to content_tag(:i, " Delete", class: 'far fa-trash-alt'), post, method: :delete, 
+          class: "btn btn-sm btn-default btn-block col-sm-4 delete", 
+          data: { confirm: "Do you want to permanently delete this post along with all it's comments and likes?" } %>
         <% end %>
       </div>
 
