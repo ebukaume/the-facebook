@@ -5,6 +5,12 @@ require 'rails_helper'
 RSpec.describe User do
   let(:new_user) { FactoryBot.build(:user) }
 
+  it { is_expected.to validate_presence_of(:first_name) }
+  it { is_expected.to validate_presence_of(:last_name) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of(:sex) }
+  it { is_expected.to validate_presence_of(:dob) }
+
   it 'is a valid user' do
     expect(new_user).to be_valid
   end

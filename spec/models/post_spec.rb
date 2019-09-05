@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Post do
   let(:post) { FactoryBot.create(:post) }
 
+  it { is_expected.to validate_presence_of(:content) }
+
   it 'is valid post if it has at least two character length content' do
     expect(post).to be_valid
   end
