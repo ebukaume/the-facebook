@@ -23,7 +23,8 @@
     <div class="form-group">
       <%= f.label :dob, "Birthday" %>
       <div>
-        <%= f.date_select :dob, { class: 'form-control', order: [:month, :day, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
+        <%= f.date_select :dob, { class: 'form-control', order: [:day, :month, :year], 
+        start_year: Date.today.year - 18, end_year: Date.today.year - 100}, {required: true} %>
       </div>
     </div>
     <div class="form-group">
