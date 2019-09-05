@@ -2,9 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Users' do
+RSpec.describe 'Users' do
   let(:returning_user) { FactoryBot.create(:user) }
-  let(:malicious_user) { FactoryBot.create(:user) }
 
   def new_user
     {
