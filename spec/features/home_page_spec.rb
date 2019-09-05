@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'homepage;' do
@@ -14,7 +16,7 @@ RSpec.describe 'homepage;' do
   scenario 'authenticated user sees link to home' do
     visit(root_path)
     fill_in_login_detials
-    expect(page).to have_link "Home"
+    expect(page).to have_link 'Home'
   end
 
   scenario "authenticated user sees self's name button" do
@@ -25,11 +27,11 @@ RSpec.describe 'homepage;' do
 
   scenario 'unauthenticated user sees sign up form' do
     visit(root_path)
-    expect(page).to have_content "Sign Up"
+    expect(page).to have_content 'Sign Up'
   end
 
   scenario 'unauthenticated user sees log in form' do
     visit(root_path)
-    expect(page).to have_button "Log In"
+    expect(page).to have_button 'Log In'
   end
 end

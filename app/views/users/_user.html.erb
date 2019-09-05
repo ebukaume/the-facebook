@@ -2,10 +2,10 @@
   <div class='col-sm-3'>
     <%= image_tag user.image + "?s=100", class: 'img-fluid' %>
   </div>
-  <div class='col-sm-6 d-flex'>
+  <div class='col-sm-5 d-flex'>
     <%= link_to user.fullname, user, class: 'align-self-center' %>
   </div>
-  <div class='col-sm-3 normalize-btn mt-3'>
+  <div class='col-sm-4 normalize-btn mt-3'>
     <%= render 'friendship_button' %>
   </div>
 </div>

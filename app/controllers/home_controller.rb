@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :load_home_page_resources
 
-  def index
-  end
+  def index; end
 
   private
 

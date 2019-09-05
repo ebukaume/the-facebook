@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User do
-  
   let(:new_user) { FactoryBot.build(:user) }
 
   it 'is a valid user' do
@@ -17,7 +18,7 @@ RSpec.describe User do
     new_user.first_name = nil
     expect(new_user).not_to be_valid
   end
-  
+
   it 'is invalid when user has too short first name' do
     new_user.first_name = 'a'
     expect(new_user).not_to be_valid
@@ -27,12 +28,12 @@ RSpec.describe User do
     new_user.first_name = 'a' * 51
     expect(new_user).not_to be_valid
   end
-  
+
   it 'is invalid when user does not provide last name' do
     new_user.last_name = nil
     expect(new_user).not_to be_valid
   end
-  
+
   it 'is invalid when user has too short last name' do
     new_user.last_name = 'a'
     expect(new_user).not_to be_valid
