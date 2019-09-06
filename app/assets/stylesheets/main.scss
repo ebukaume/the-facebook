@@ -8,17 +8,31 @@ body {
 }
 
 
-// header
-
 $theme: #042972;
 
 #navbar{
 	background-color: $theme;
 }
 
-header a {
-	color: white;
-	display: inline-block;
+header {
+	a{
+		color: white;
+		display: inline-block;
+	}
+	a:hover{
+		color: white;
+	}
+	a.dropdown-toggle{
+		color: #000;
+	}
+}
+
+.no-data{
+	color: #1c1e21;
+}
+
+.no-data:hover{
+	color: #000;
 }
 
 .form-control-xs {
