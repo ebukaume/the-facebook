@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   #   sign_out: :logout
   # }
 
-  resources :posts, only: %i[create edit update destroy]
+  resources :posts, only: %i[index create edit update destroy]
   resources :comments, except: %i[index new show]
   resources :likes, only: %i[create destroy]
 

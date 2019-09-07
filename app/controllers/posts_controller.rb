@@ -2,7 +2,11 @@
 
 class PostsController < ApplicationController
   before_action :fetch_post, only: %i[edit update destroy]
-  before_action :fetch_posts, only: %i[create edit]
+  before_action :fetch_posts, only: %i[index create edit]
+
+  def index
+    @post = Post.new
+  end
 
   def create
     create_post post_params
