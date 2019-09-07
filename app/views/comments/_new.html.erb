@@ -1,0 +1,16 @@
+<div class='row'>
+  <div class='col-sm-1'>
+    <%= image_tag image_src_for(current_user, size: '40'), class: 'rounded-circle', alt: "user" %>
+  </div>
+  <div class='col-sm-10 ml-2'>
+    <%= form_for comment do |f| %>
+      <div class='row'>
+        <div class="form-group col-sm-10">
+          <%= f.hidden_field :post_id, value: post.id %>
+          <%= f.text_area :content, class: 'md-textarea form-control new-comment', placeholder: 'Write a comment', rows: '1' %>
+        </div>
+        <%= f.submit comment_submit_button(comment), class: 'btn btn-sm btn-primary submit-comment' %>
+      </div>
+    <% end %>
+  </div>
+</div>

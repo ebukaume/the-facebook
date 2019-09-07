@@ -9,7 +9,8 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if @post.can_edit?(current_user)
+    if @post.authored_by?(current_user)
+      @comment = Comment.new
       render 'home/index'
     else
       flash[:post_notice] = 'You are not authorized to edit this post'

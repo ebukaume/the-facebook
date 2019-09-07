@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Users' do
   let(:returning_user) { FactoryBot.create(:user) }
+  let(:factory_post) { FactoryBot.create(:post) }
 
   def new_user
     {
@@ -27,6 +28,11 @@ RSpec.describe 'Users' do
   def create_post(content)
     fill_in 'post[content]', with: content
     click_button 'Post'
+  end
+
+  def create_comment(content)
+    fill_in 'comment[content]', with: content
+    click_button 'Submit'
   end
 
   scenario 'can create account' do
@@ -97,5 +103,16 @@ RSpec.describe 'Users' do
     click_link 'Delete'
 
     expect(page).not_to have_content(post_content)
+  end
+
+  scenario 'can comment on posts' do
+    visit root_path
+    login(returning_user)
+    post_content = Faker::Lorem.paragraph
+    create_post(post_content)
+    comment_content = Faker::Lorem.paragraph
+    create_comment(comment_content)
+
+    expect(page).to have_content(comment_content)
   end
 end
