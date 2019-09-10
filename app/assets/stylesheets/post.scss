@@ -1,0 +1,44 @@
+.post{
+	font-size: 0.90rem;
+}
+
+.card-footer input[type=submit] {
+	width: 15%;
+}
+
+.interactions{
+    border-bottom: 1px solid rgb(206, 198, 198);
+}
+
+.interactions a{
+	color: #1c1e21;
+	font-size: 0.9rem;
+}
+
+.interactions a:hover {
+	background-color: lighten($color: $theme, $amount: 70);
+}
+
+.interactions a.delete:hover {
+	background-color: red;
+}
+
+.comment-well,
+.new-comment{
+	font-size: 0.85rem;
+	border-radius: 40px;
+	background: #e9ebee;
+}
+
+.new-comment:focus{
+	background: #e9ebee;
+}
+
+.comment-interactions *{
+	font-size: 0.80rem;
+	font-weight: 200;
+}
+
+.submit-comment{
+	border-radius: 40px;
+}

@@ -1,0 +1,24 @@
+<%= render 'posts/error_messages', errors: @post.errors %>
+<%= render 'posts/flash' %>
+<div id='new_post'>
+  <%= form_for @post do |f| %>
+    <div class='card my-3'>
+      <h6 class='card-header'><%= post_editor_title @post %></h6>
+      <div class='card-body'>
+        <div class='row'>
+          <div class='col-sm-1'>
+            <%= image_tag "#{current_user.image}?s=40", class: "rounded-circle", alt: "user"%>
+          </div>
+          <div class='col-sm-10 ml-2'>
+            <%= f.text_area :content, class: "pl-2 md-textarea form-control", rows: '4', 
+             placeholder: "What's on your mind? #{ current_user.first_name }", value: @post.content %>
+          </div>
+        </div>
+      </div>
+      <div class='card-footer'>
+        <%= f.submit post_editor_submit_button(@post), class: 'btn btn-primary btn-sm float-right' %>
+      </div>
+    </div>
+    
+  <% end %>
+</div>

@@ -1,0 +1,123 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+    margin: 0;
+    font-family: "Lucida Grande", tahoma, verdana, arial, sans-serif;
+    line-height: 1.28;
+}
+
+
+$theme: #042972;
+
+#navbar{
+	background-color: $theme;
+}
+
+header {
+	a{
+		color: white;
+		display: inline-block;
+	}
+	a:hover{
+		color: white;
+	}
+	a.dropdown-toggle{
+		color: #000;
+	}
+}
+
+.no-data{
+	color: #1c1e21;
+}
+
+.no-data:hover{
+	color: #000;
+}
+
+.form-control-xs {
+	height: calc(1em + .375rem + 2px) !important;
+	padding: .125rem .25rem !important;
+	font-size: .75rem !important;
+	line-height: 1.5;
+	border-radius: .2rem;
+}
+
+.scale-form-control-xs{
+	height: calc(1em + .375rem + 2px) !important;
+	font-size: .75rem !important;
+	line-height: 1.5;
+	border-radius: .2rem;
+	cursor: pointer;
+}
+
+.inline-form-label{
+	color: #eee;
+	font-size: 0.85rem;
+	padding-bottom: 0.4rem;
+}
+
+.forgot-password{
+	color: #9cb4d8;
+	font-size: 0.85rem;
+}
+
+.inline-form-button{
+	height: 1.35rem;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 18px;
+	background-color: lighten($color: $theme, $amount: 10);
+}
+
+.new-user h5{
+	color: #333
+}
+
+.new-user label{
+	color: #90949c;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.form-check label{
+	color:#1d2129;
+	font-weight: 500;
+}
+
+.new-user p{
+	color: #777;
+	font-size: 11px;
+}
+
+.new-user input[type=submit] {
+	font-size: 1.25rem;
+}
+
+.landing-banner{
+	background: url('/assets/landing-image.png') no-repeat;
+	width: 100%;
+	height: 250px;
+}
+
+footer .copyright{
+	font-size: 11px;
+	color: #737373;
+}
+
+.login{
+	background: #fff;
+	border-radius: 5px;
+	margin-top: 80px;
+	margin-bottom: 80px;
+}
+
+.login h2{
+	color: #1c1e21;
+	font-weight: 400;
+	font-size: 1rem;
+}
+
+.shared-links{
+	font-size: 0.9rem;
+}

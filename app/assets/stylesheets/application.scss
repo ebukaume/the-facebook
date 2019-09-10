@@ -11,6 +11,14 @@
  * It is generally better to create a new file per style scope.
  *
  */
-
-@import "bootstrap-sprockets";
-@import "bootstrap";
+ @import "bootstrap";
+ @import "font-awesome-sprockets";
+ @import "font-awesome";
+ @import "main";
+ @import "users";
+ @import "post";
+ 
+ body{
+   background: #e9ebee;
+ }
+ 

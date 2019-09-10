@@ -1,0 +1,16 @@
+<div class='container'>
+  <%= render 'users/banner' %>
+
+    <div class='row'>
+      <div class='col-md-10 row'>
+        <div class='col-md-5 my-3'>
+          <%= render 'users/bio' %>
+          <%= render 'users/friends' %>
+        </div>
+        <div class='col-md-7'>
+          <%= render 'posts/post_editor' %>
+          <%= render @posts %>
+        </div>
+      </div>
+  </div>
+</div>

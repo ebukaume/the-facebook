@@ -1,0 +1,12 @@
+<header id="navbar" class=''>
+  <nav class="navbar navbar-expand-sm navbar-inverse">
+    <div class='container'>
+        <%= link_to app_name, root_path, class: "navbar-brand", title: 'Go to Home page' %>
+        <% if user_signed_in? %>
+          <%= render 'layouts/user_panel' %>
+        <% else %>
+          <%= render 'layouts/inline_login' %>
+        <% end %>
+    </div>
+  </nav>
+</header>

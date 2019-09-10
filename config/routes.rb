@@ -1,14 +1,21 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  get  "/", to:'home#index', as: "root"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resource :user, except: [:index]
+  devise_for :users
+  resources :users, only: %i[show index]
 
-  resource :post do
-    resources :comments, except: [:index, :new, :show]
-    resource :likes, only: [:create, :destroy]
-  end
+  # devise_for :users, path: "",
+  #  path_names: {
+  #   sign_in: :login,
+  #   sign_up: :register,
+  #   sign_out: :logout
+  # }
 
-  get ':user_id/friends', to: 'friends#index'
-  
+  resources :posts, only: %i[index create edit update destroy]
+  resources :comments, except: %i[index new show]
+  resources :likes, only: %i[create destroy]
+
+  get '/friends', to: 'users#friends'
+
   root 'home#index'
 end
