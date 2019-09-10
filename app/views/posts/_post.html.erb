@@ -1,4 +1,4 @@
-<div class='post mb-3'>
+<div class='post mb-3' id=<%= post.id %>>
   <div class='card'>
     <div class='card-body'>
       <div class='row'>
@@ -7,7 +7,12 @@
         </div>
         <div class='col-sm-10 ml-2'>
           <strong><%= link_to post.author.fullname, user_path(post.author) %></strong>
-          <div class='text-secondary'>&nbsp;<%= time_ago_in_words(post.created_at, include_seconds: true) %></div>
+          <div class='text-secondary'>
+            <%= time_ago_in_words(post.created_at, include_seconds: true) %>
+            <% if edited?(post) %>
+              <small class='text-secondary'>&nbsp; edited</small>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class='row mt-3 mb-4'>
@@ -21,7 +26,7 @@
         <% end %>
         <span class='float-right text-secondary'><%= count(post.comments, 'comment') %></span>
       </div>
-      <div class='interactions row mb-3'>
+      <div class='interactions actions row mb-3'>
         <% if liked?(post) %>
           <%= link_to content_tag(:i, " Liked", class: 'liked fas fa-thumbs-up'), like_path(post), method: :delete, 
             class: "btn btn-sm btn-default btn-block col-sm-4 mt-2" %>
@@ -41,7 +46,7 @@
       </div>
 
       <%= render post.comments %>
-      <%= render 'comments/new', {comment: @comment, post: post} %>
+      <%= render 'comments/new', {comment: normalize_comment_for_edit(@comment, post), post: post} %>
     </div>
   </div>
 </div>

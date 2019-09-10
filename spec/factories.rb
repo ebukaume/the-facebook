@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :like do
-    imagable { nil }
+    association :liker, factory: :user
   end
 
   factory :comment do

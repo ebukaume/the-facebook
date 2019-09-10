@@ -50,6 +50,12 @@ class Post < ApplicationRecord
     authored_by?(user) || user.friends_with(author)
   end
 
+  def can_edit?(user)
+    authored_by?(user)
+  end
+
+  private
+
   def authored_by?(user)
     author == user
   end

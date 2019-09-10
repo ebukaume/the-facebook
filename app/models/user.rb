@@ -31,14 +31,14 @@ class User < ApplicationRecord
   end
 
   def like(resource)
-    return if self.likes.create(likeable: resource)
+    return if likes.create(likeable: resource)
 
     'Sorry, you are not authorized to like on this resource.'
   end
 
   def dislike(resource)
-    like = self.likes.where(likeable: resource, liker: self).first
-    return if like && like.destroy
+    like = likes.where(likeable: resource, liker: self).first
+    return if like&.destroy
 
     'Sorry, but you never liked this post!'
   end

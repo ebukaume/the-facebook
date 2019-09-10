@@ -32,7 +32,7 @@ RSpec.describe 'Users' do
 
   def create_comment(content)
     fill_in 'comment[content]', with: content
-    click_button 'Submit'
+    click_button 'Comment'
   end
 
   scenario 'can create account' do
@@ -55,7 +55,6 @@ RSpec.describe 'Users' do
 
   scenario 'can login' do
     visit root_path
-
     login(returning_user)
 
     expect(page).to have_content(returning_user.first_name)
@@ -63,8 +62,8 @@ RSpec.describe 'Users' do
 
   scenario 'can log out' do
     visit root_path
-
     login(returning_user)
+
     click_link 'Log Out'
 
     expect(page).not_to have_content(returning_user.first_name)
@@ -72,8 +71,8 @@ RSpec.describe 'Users' do
 
   scenario 'can create post' do
     visit root_path
-
     login(returning_user)
+
     post_content = Faker::Lorem.paragraph
     create_post(post_content)
 
@@ -82,22 +81,21 @@ RSpec.describe 'Users' do
 
   scenario 'can edit his post' do
     visit root_path
-
     login(returning_user)
+
     post_content = Faker::Lorem.paragraph
     create_post(post_content)
     click_link 'Edit'
-    new_content = Faker::Lorem.paragraph
-    fill_in 'post[content]', with: new_content
-    click_button 'Save Edit'
+    fill_in 'post[content]', with: Faker::Lorem.paragraph
+    click_button 'Save'
 
     expect(page).not_to have_content(post_content)
   end
 
   scenario 'can delete his post' do
     visit root_path
-
     login(returning_user)
+
     post_content = Faker::Lorem.paragraph
     create_post(post_content)
     click_link 'Delete'
@@ -108,11 +106,97 @@ RSpec.describe 'Users' do
   scenario 'can comment on posts' do
     visit root_path
     login(returning_user)
-    post_content = Faker::Lorem.paragraph
-    create_post(post_content)
+
+    create_post(Faker::Lorem.paragraph)
     comment_content = Faker::Lorem.paragraph
     create_comment(comment_content)
 
     expect(page).to have_content(comment_content)
+  end
+
+  scenario 'can edit comment' do
+    visit root_path
+    login(returning_user)
+
+    create_post(Faker::Lorem.paragraph)
+    create_comment(Faker::Lorem.paragraph)
+    within '.comment-interactions' do
+      click_link 'Edit'
+    end
+    new_comment = Faker::Lorem.paragraph
+    fill_in 'comment[content]', with: new_comment
+    click_button 'Save'
+
+    expect(page).to have_content(new_comment)
+  end
+
+  scenario 'can delete comment' do
+    visit root_path
+    login(returning_user)
+
+    create_post(Faker::Lorem.paragraph)
+    comment = Faker::Lorem.paragraph
+    create_comment(comment)
+    within '.comment-interactions' do
+      click_link 'Delete'
+    end
+
+    expect(page).not_to have_content(comment)
+  end
+
+  scenario 'can like post' do
+    visit root_path
+    login(returning_user)
+
+    create_post(Faker::Lorem.paragraph)
+    within '.actions' do
+      click_link 'Like'
+    end
+
+    expect(page).to have_content('Liked')
+  end
+
+  scenario 'can reverse like on post' do
+    visit root_path
+    login(returning_user)
+
+    create_post(Faker::Lorem.paragraph)
+    within '.actions' do
+      click_link 'Like'
+    end
+    within '.actions' do
+      click_link 'Liked'
+    end
+
+    expect(page).not_to have_content('Liked')
+  end
+
+  scenario 'can like comment' do
+    visit root_path
+    login(returning_user)
+
+    create_post(Faker::Lorem.paragraph)
+    create_comment(Faker::Lorem.paragraph)
+    within '.comment-interactions' do
+      click_link 'Like'
+    end
+
+    expect(page).to have_content('Liked')
+  end
+
+  scenario 'can like comment' do
+    visit root_path
+    login(returning_user)
+
+    create_post(Faker::Lorem.paragraph)
+    create_comment(Faker::Lorem.paragraph)
+    within '.comment-interactions' do
+      click_link 'Like'
+    end
+    within '.comment-interactions' do
+      click_link 'Liked'
+    end
+
+    expect(page).not_to have_content('Liked')
   end
 end
