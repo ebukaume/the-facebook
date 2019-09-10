@@ -12,6 +12,7 @@ class HomeController < ApplicationController
     if user_signed_in?
       @post = Post.new
       @posts = Post.visible_to_user
+      @comment = Comment.new
     else
       @user = User.new
     end

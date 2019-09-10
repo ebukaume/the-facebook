@@ -1,13 +1,18 @@
-<div class='post mb-3'>
+<div class='post mb-3' id=<%= post.id %>>
   <div class='card'>
     <div class='card-body'>
       <div class='row'>
         <div class='col-sm-1'>
-          <%= image_tag "#{post.author.image}?s=40", class: 'rounded-circle', alt: "post author" %>
+          <%= image_tag image_src_for(post.author, size: '40'), class: 'rounded-circle', alt: "post author" %>
         </div>
         <div class='col-sm-10 ml-2'>
           <strong><%= link_to post.author.fullname, user_path(post.author) %></strong>
-          <div class='text-secondary'>&nbsp;<%= time_ago_in_words(post.created_at, include_seconds: true) %></div>
+          <div class='text-secondary'>
+            <%= time_ago_in_words(post.created_at, include_seconds: true) %>
+            <% if edited?(post) %>
+              <small class='text-secondary'>&nbsp; edited</small>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class='row mt-3 mb-4'>
@@ -16,12 +21,19 @@
         </div>
       </div>
       <div class='interactions pb-2'>
-        <span><%= image_tag 'likes.jpg', alt: 'likes', size: 20 %> <span class='text-secondary'>38</span></span>
-        <span class='float-right text-secondary'>17 comments</span>
+        <% if liked?(post) %>
+          <span><%= image_tag 'likes.jpg', alt: 'likes', size: 20 %> <span class='text-secondary'><%= post.likes.size %></span></span>
+        <% end %>
+        <span class='float-right text-secondary'><%= count(post.comments, 'comment') %></span>
       </div>
-      <div class='interactions row mb-3'>
-        <%= link_to content_tag(:i, " Like", class: 'far fa-thumbs-up'), likes_path(post: post), method: :post, 
-          class: "btn btn-sm btn-default btn-block col-sm-4 mt-2" %>
+      <div class='interactions actions row mb-3'>
+        <% if liked?(post) %>
+          <%= link_to content_tag(:i, " Liked", class: 'liked fas fa-thumbs-up'), like_path(post), method: :delete, 
+            class: "btn btn-sm btn-default btn-block col-sm-4 mt-2" %>
+        <% else %>
+            <%= link_to content_tag(:i, " Like", class: 'far fa-thumbs-up'), likes_path(id: post), method: :post, 
+            class: "btn btn-sm btn-default btn-block col-sm-4 mt-2" %>
+        <% end %>
 
         <% if authored_by_current_user(post) %> 
           <%= link_to content_tag(:i, " Edit", class: 'far fa-edit'), edit_post_path(post), 
@@ -33,56 +45,8 @@
         <% end %>
       </div>
 
-      <div class='comment'>
-        <div class='row comment-content mb-3'>
-          <div class='col-sm-1'>
-            <img class='rounded-circle' src='https://gravatar.com/avatar/1e09a1d4891c0f49ab63a1df06fcb830?s=40' alt='profile picture'>
-          </div>
-          <div class='col-sm-10'>
-            <div class='comment-well py-2 px-4'>
-              <span>
-                <strong><%= link_to "Commenter's name", '#' %></strong>
-              </span> 
-              Some good old comment for your eyes only. See you next week
-            </div>
-          </div>
-          <div class='col-sm-10 offset-sm-1 comment-interactions'>
-            <span class=''><%= link_to 'Like', '#' %> </span> <span class='text-secondary'>&nbsp;1h</span>
-            <span class='float-right'><%= image_tag 'likes.jpg', alt: 'likes', size: 20 %> <span class='text-secondary'>6</span></span>
-          </div>
-        </div>
-      </div>
-      
-      <div class='comment'>
-        <div class='row comment-content mb-3'>
-          <div class='col-sm-1'>
-            <img class='rounded-circle' src='https://gravatar.com/avatar/1e09a1d4891c0f49ab63a1df06fcb830?s=40' alt='profile picture'>
-          </div>
-          <div class='col-sm-10'>
-            <div class='comment-well py-2 px-4'>
-              <span>
-                <strong><%= link_to "Commenter's name", '#' %></strong>
-              </span> 
-              Some good old comment for your eyes only. See you next week
-            </div>
-          </div>
-          <div class='col-sm-10 offset-sm-1 comment-interactions'>
-            <span class=''><%= link_to 'Like', '#' %> </span> <span class='text-secondary'>&nbsp;1h</span>
-            <span class='float-right'><%= image_tag 'likes.jpg', alt: 'likes', size: 20 %> <span class='text-secondary'>6</span></span>
-          </div>
-        </div>
-      </div>
-      
-        <div class='row'>
-        <div class='col-sm-1'>
-          <img class='rounded-circle' src='https://gravatar.com/avatar/1e09a1d4891c0f49ab63a1df06fcb830?s=40' alt='user'>
-        </div>
-        <div class='col-sm-8 ml-2'>
-          <textarea class="md-textarea form-control new-comment" rows='1' placeholder='Write a comment'></textarea>
-        </div>
-        <button type="submit" class='col-sm-2 btn btn-sm btn-primary submit-comment'>Submit</button>
-      </div>
-
+      <%= render post.comments %>
+      <%= render 'comments/new', {comment: normalize_comment_for_edit(@comment, post), post: post} %>
     </div>
   </div>
 </div>

@@ -1,0 +1,31 @@
+<div class='comment' id=<%= comment.id %>>
+  <div class='row comment-content mb-3'>
+    <div class='col-sm-1'>
+      <%= image_tag image_src_for(comment.author, size: '40'), class: 'rounded-circle', alt: 'commenter' %>
+    </div>
+    <div class='col-sm-10'>
+      <div class='comment-well py-2 px-4'>
+        <span>
+          <strong><%= link_to comment.author.fullname, comment.author %></strong>
+        </span> 
+        <%= comment.content %>
+      </div>
+    </div>
+    <div class='col-sm-10 ml-5 comment-interactions'>
+      <% if liked?(comment) %>
+        <span class='liked'><%= link_to 'Liked', like_path(comment), method: :delete %> </span>
+        <span class='float-right'><%= image_tag 'likes.jpg', alt: 'likes', size: 20 %> <span class='text-secondary'><%= comment.likes.size %></span></span>
+      <% else %>      
+        <span><%= link_to 'Like', likes_path(id: comment), method: :post %> </span>
+      <% end %>
+      <% if authored_by_current_user(comment) %> 
+        <span>&nbsp;<%= link_to 'Edit', edit_comment_path(comment, anchor: comment.id) %>&nbsp;</span>
+        <span><%= link_to 'Delete', comment, method: :delete, data: { confirm: "Are you sure you want to permanently delete this comment?" } %> </span>
+      <% end %>
+      <% if edited?(comment) %>
+        <small class='text-secondary'>&nbsp; edited</small>
+      <% end %>
+      <span class='text-secondary'>&nbsp;<%= time_ago_in_words(comment.created_at, include_seconds: true) %></span>
+    </div>
+  </div>
+</div>

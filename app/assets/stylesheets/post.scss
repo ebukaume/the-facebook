@@ -41,4 +41,12 @@
 
 .submit-comment{
 	border-radius: 40px;
+	height: 100%;
+}
+
+.liked{
+	color: $theme;
+	a{
+		font-weight: bold;
+	}
 }

@@ -13,17 +13,13 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if @post.can_edit?(current_user)
-      render 'home/index'
-    else
-      flash[:post_notice] = 'You are not authorized to edit this post'
-      redirect_to root_path
-    end
+    @comment = Comment.new
+    render 'home/index'
   end
 
   def update
     flash[:post_notice] = @post.update_post(current_user, post_params)
-    redirect_to root_path
+    redirect_to root_path anchor: @post
   end
 
   def destroy
