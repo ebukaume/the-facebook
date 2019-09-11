@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     return if (@user = User.find_by(id: params[:id]))
 
     flash[:danger] = 'Oops! It seems the user you are looking for has been kicked out or never existed in our record!'
-    redirect_to root_path
+    redirect_back fallback_location: root_path
   end
 
   def fetch_users
@@ -24,5 +24,6 @@ class UsersController < ApplicationController
   def fetch_posts_for_user_show
     @post = Post.new
     @posts = Post.authored_by(@user)
+    @comment = Comment.new
   end
 end
