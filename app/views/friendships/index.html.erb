@@ -1,0 +1,24 @@
+<div class='container'>
+  <div class='mb-3'>
+    <%= render 'users/banner' %>
+  </div>
+  <div class='row'>
+    <div class='col-md-10'>
+      <div class='card'>
+        <div class='card-header'>
+          <span> <%= pluralize(@friends.size, 'Friends') %> </span>
+        </div>
+        <div class='card-body row'>
+        <% if @friends.any? %>
+          <%= render @friends %>
+        <% else %>
+          <div class='well mx-auto'>
+            <h5>No friends yet</h5>
+            <small><%= link_to 'Go make some friends', users_path %></small>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

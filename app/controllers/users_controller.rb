@@ -2,9 +2,10 @@
 
 class UsersController < ApplicationController
   before_action :fetch_user, :fetch_posts_for_user_show, only: [:show]
-  before_action :fetch_users, only: :index
 
-  def index; end
+  def index
+    @users = User.all
+  end
 
   def show; end
 
@@ -15,10 +16,6 @@ class UsersController < ApplicationController
 
     flash[:danger] = 'Oops! It seems the user you are looking for has been kicked out or never existed in our record!'
     redirect_back fallback_location: root_path
-  end
-
-  def fetch_users
-    @users = User.all
   end
 
   def fetch_posts_for_user_show

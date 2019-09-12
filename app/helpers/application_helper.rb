@@ -44,4 +44,16 @@ module ApplicationHelper
 
     Comment.new
   end
+
+  def user_friendship_request(user, dir = :sent)
+    sender = current_user
+    receiver = user
+    sender, receiver = receiver, sender if dir == :received
+
+    sender.friendships.where(friend: receiver).first
+  end
+
+  def friend_requests
+    current_user.inverse_friendships.pending_inverse
+  end
 end

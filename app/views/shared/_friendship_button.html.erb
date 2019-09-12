@@ -1,0 +1,24 @@
+<% if current_user.friends_with? object %>
+  <%= link_to 'Unfriend', user_friendship_request(object), method: :delete, 
+          class: "btn btn-sm btn-danger btn-block delete mt-2", 
+          data: { confirm: "Are you sure you want to unfriend #{object.fullname}" } %>
+
+<% elsif current_user.sent_request_to? object %>
+  <%= link_to 'Friend Request Sent', user_friendship_request(object), method: :delete, 
+          class: "btn btn-sm btn-info btn-block", title: 'Click to cancel request',
+          data: { confirm: "Are you sure you want to cancel this request?" } %>
+
+<% elsif current_user.received_request_from? object %>
+  <div class='row'>
+    <%= link_to 'Confirm', user_friendship_request(object, :received), method: :patch, 
+            class: "btn btn-sm btn-primary btn-block col-sm-5 normalize-btn mt-2" %>
+
+    <%= link_to 'Delete Request', user_friendship_request(object, :received), method: :delete, 
+            class: "btn btn-sm btn-danger btn-block col-sm-6 offset-sm-1", 
+            data: { confirm: "Are you sure you want to delete this request?" } %>
+  </div>
+
+<% else %>
+  <%= link_to 'Add Friend', friendships_path(user: object), method: :post, 
+          class: "btn btn-sm btn-primary btn-block" %>
+<% end %>

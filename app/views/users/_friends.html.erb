@@ -2,30 +2,20 @@
   <div class='card'>
     <div class='card-body'>
       <div class='header mb-2'>
-        <%= link_to raw("<i class='fas fa-user-friends mr-2'> </i>Friends"), '#' %>
+        <a href= <%= friends_path(user: @user) %> > <%= icon('fas', 'user-friends', class: 'mr-1') %> Friends </a>
         <span class="text-secondary">&nbsp;41 Mutual Friends</span>
       </div>
       <div class='row'>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
+        <% if object.any? %>
+          <% object.each do |friend| %>
+            <div class='friends-gallery col-sm-4 my-1'>
+              <%= image_tag image_src_for(friend), class:"img-fluid", title: friend.fullname %>
+              <%= link_to friend.fullname, friend %>
+            </div>
+          <% end %>
+        <% else %>
+          No Friends Yet
+        <% end %>
       </div>
     <div>
   <div>

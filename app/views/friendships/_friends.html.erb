@@ -1,0 +1,11 @@
+<div class='col-md-6 row my-3 ml-2 friend'>
+  <div class='col-sm-3'>
+    <%= image_src_for(user, size: '100'), class: 'img-fluid' %>
+  </div>
+  <div class='col-sm-5 d-flex'>
+    <%= link_to friend.fullname, friend, class: 'align-self-center' %>
+  </div>
+  <div class='col-sm-4 normalize-btn mt-3'>
+    <%= render 'shared/frienship_button', object: friend %>
+  </div>
+</div>

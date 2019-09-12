@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_07_035549) do
+ActiveRecord::Schema.define(version: 2019_09_11_175713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,28 @@ ActiveRecord::Schema.define(version: 2019_09_07_035549) do
     t.datetime "updated_at", null: false
     t.index ["author_id", "post_id"], name: "index_comments_on_author_id_and_post_id"
     t.index ["id"], name: "index_comments_on_id", unique: true
+  end
+
+  create_table "friends", id: false, force: :cascade do |t|
+    t.string "id", null: false
+    t.string "user_id"
+    t.string "friend_id"
+    t.boolean "confirmed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_friends_on_id", unique: true
+    t.index ["user_id", "friend_id"], name: "index_friends_on_user_id_and_friend_id"
+  end
+
+  create_table "friendships", id: false, force: :cascade do |t|
+    t.string "id", null: false
+    t.string "user_id"
+    t.string "friend_id"
+    t.boolean "confirmed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_friendships_on_id", unique: true
+    t.index ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id"
   end
 
   create_table "likes", id: false, force: :cascade do |t|

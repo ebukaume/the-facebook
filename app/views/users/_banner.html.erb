@@ -7,7 +7,7 @@
         </div>
         <%= link_to @user.fullname, @user, class: 'align-self-end mb-5 col' %>
         <div class='align-self-end offset-sm-1 mb-5'>
-          <%= render 'users/friendship_button' %>
+          <%= render 'shared/friendship_button', object: @user unless current_user == @user%>
         </div>
       </div>
     </section>
