@@ -6,6 +6,9 @@ RSpec.describe Comment do
   let(:comment) { FactoryBot.build(:comment) }
 
   it { is_expected.to validate_presence_of(:content) }
+  it { belong_to(:user) }
+  it { belong_to(:post) }
+  it { have_many(:likes) }
 
   it 'is valid post when comment reference both an author and a post' do
     expect(comment).to be_valid

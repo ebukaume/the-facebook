@@ -3,6 +3,8 @@
 class Friendship < ApplicationRecord
   self.primary_key = 'id'
 
+  before_create { self.id = user.id + friend.id }
+
   belongs_to :user
   belongs_to :friend, class_name: 'User'
 

@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Friendship, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Friendship do
+  it { belong_to(:user) }
+  it { belong_to(:friend) }
 end
