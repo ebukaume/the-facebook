@@ -54,6 +54,10 @@ module ApplicationHelper
   end
 
   def friend_requests
-    current_user.inverse_friendships.pending_inverse
+    Friendship.pending_requests current_user
+  end
+
+  def friends(user)
+    Friendship.confirmed_friends(user)
   end
 end

@@ -8,7 +8,8 @@ class FriendshipsController < ApplicationController
 
   def index
     @user = User.find_by(id: params[:user]) || current_user
-    @friends = @user.friendships.confirmed_friends
+    @friends = Friendship.confirmed_friends @user
+    @mutuals = Friendship.mutual_friends(current_user, @user)
   end
 
   def update
@@ -16,23 +17,22 @@ class FriendshipsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
-  def user_friends
-    @user = User.find_by(id: params[:user])
-    redirect_to(friends_path) && return unless user
-    @friends = @user.friendships.confirmed_friends
-    render 'index'
-  end
-
   def requests
-    @friends = current_user.inverse_friendships.pending_inverse
+    @friends = Friendship.pending_requests current_user
   end
 
   def requests_sent
-    @friends = current_user.friendships.pending_friends
+    @friends = Friendship.pending_friends current_user
     render 'requests'
   end
 
-  def mutual; end
+  def mutual_friends
+    @user = User.find_by(id: params[:user])
+    redirect_to(friends_path) && return if @user.nil? || @user == current_user
+    @friends = Friendship.confirmed_friends @user
+    @mutuals = Friendship.mutual_friends(current_user, @user)
+    render 'index'
+  end
 
   def destroy
     flash[:notice] = Friendship.delete_friendship(current_user, params[:id])

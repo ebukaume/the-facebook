@@ -7,7 +7,9 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show; end
+  def show
+    @mutual_friends_count = Friendship.mutual_friends(current_user, @user).count
+  end
 
   private
 

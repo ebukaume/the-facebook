@@ -2,8 +2,10 @@
   <div class='card'>
     <div class='card-body'>
       <div class='header mb-2'>
-        <a href= <%= friends_path(user: @user) %> > <%= icon('fas', 'user-friends', class: 'mr-1') %> Friends </a>
-        <span class="text-secondary">&nbsp;41 Mutual Friends</span>
+        <a href= <%= friends_path(user: @user) %> > <%= icon('fas', 'user-friends', class: 'mr-1') %> Friends &nbsp;</a>
+        <% unless current_user == @user %>        
+          <span class="text-secondary">(<%= link_to pluralize(mutual_count, 'Mutual Friend'), mutual_friends_path(user: @user) %>)</span>
+        <% end %>
       </div>
       <div class='row'>
         <% if object.any? %>

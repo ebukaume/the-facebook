@@ -21,8 +21,8 @@ class User < ApplicationRecord
   has_many :comments, foreign_key: 'author_id', dependent: :destroy
   has_many :likes, foreign_key: 'liker_id', dependent: :destroy
   has_many :posts, foreign_key: 'author_id', dependent: :destroy
-  has_many :friendships, foreign_key: 'user_id', dependent: :destroy
-  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships
 
   def fullname
     "#{first_name} #{last_name}"
@@ -46,15 +46,15 @@ class User < ApplicationRecord
   end
 
   def friends_with?(other_user)
-    friendships.confirmed_friends.any? other_user
+    Friendship.confirmed_friends(self).any? other_user
   end
 
   def sent_request_to?(other_user)
-    friendships.pending_friends.any? other_user
+    Friendship.pending_friends(self).any? other_user
   end
 
   def received_request_from?(other_user)
-    inverse_friendships.pending_inverse.any? other_user
+    Friendship.pending_requests(self).any? other_user
   end
 
   def request_friendship(user_id)

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get '/friends', to: 'friendships#index'
   get '/:user/friends', to: 'friendships#user_friends'
+  get '/mutual_friends', to: 'friendships#mutual_friends'
   get '/friend_requests', to: 'friendships#requests'
   get '/friend_requests_sent', to: 'friendships#requests_sent'
 
