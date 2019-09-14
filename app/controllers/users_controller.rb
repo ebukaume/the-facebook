@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def fetch_posts_for_user_show
     @post = Post.new
-    @posts = Post.authored_by(@user)
+    @posts = Post.authored_by? @user
     @comment = Comment.new
   end
 end

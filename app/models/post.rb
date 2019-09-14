@@ -9,34 +9,38 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
-  scope :visible_to_user, -> {}
-  scope :authored_by, ->(user) { where(author: user) }
+  scope :authored_by?, ->(user) { where(author: user) }
 
   default_scope -> { order('updated_at DESC').includes(:author, :comments, :likes) }
 
+  def self.visible_to_user(user)
+    find_by_sql(["SELECT * FROM posts
+      WHERE author_id = ?
+      OR author_id IN (
+        SELECT friend_id FROM friendships
+          WHERE user_id = ?
+      )", user.id, user.id])
+  end
+
   def delete_post(user)
-    if authored_by?(user)
-      destroy
-      'Post deleted successfully!'
-    else
-      "Sorry, you can't delete this post. You are not the author!"
-    end
+    return "Sorry, you can't delete this post. You are not the author!" unless authored_by?(user)
+
+    destroy
+    'Post deleted successfully!'
   end
 
   def update_post(user, post_params)
-    if authored_by?(user)
-      if update_attributes(post_params)
-        'Post successfuly edited!'
-      else
-        'Oops! Please make sure the content is at least 2 character long!'
-      end
+    return 'Sorry, but you are not the author of this post!' unless authored_by? user
+
+    if update_attributes(post_params)
+      'Post successfuly edited!'
     else
-      'Sorry, but you are not the author of this post!'
+      'Oops! Please make sure the content is at least 2 character long!'
     end
   end
 
   def create_comment(user, comment_params)
-    return 'Sorry, you are not authorized to comment on this post.' unless can_comment?(user)
+    return 'Sorry, you are not authorized to comment on this post.' unless can_comment? user
 
     comment = comments.build(comment_params)
     if comment.save

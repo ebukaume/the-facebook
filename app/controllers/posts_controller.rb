@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   end
 
   def fetch_posts
-    @posts = Post.visible_to_user
+    @posts = Post.visible_to_user current_user
   end
 
   def post_params

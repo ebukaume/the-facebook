@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def normalize_comment_for_edit(comment, post)
-    return comment if comment.post == post
+    return comment if comment && comment.post == post
 
     Comment.new
   end
