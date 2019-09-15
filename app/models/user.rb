@@ -60,13 +60,13 @@ class User < ApplicationRecord
   def request_friendship(user_id)
     other_user = User.find_by(id: user_id)
     return 'The user you wish to send request to does not exist!' if other_user.nil?
-    return "Sorry, you can't send request to your self" if self == other_user
+    return "Sorry, you can't send friend request to yourself" if self == other_user
     return "You are already friends with #{other_user.fullname}!" if friends_with? other_user
     return "You already sent friend request to #{other_user.fullname}" if sent_request_to? other_user
     return "You seem to already have a pending request from #{other_user.fullname}" if received_request_from? other_user
 
     friendships.create(friend: other_user)
-    "Friends request successfully sent to #{other_user.fullname}"
+    "Friend request successfully sent to #{other_user.fullname}"
   end
 
   private

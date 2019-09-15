@@ -3,7 +3,9 @@
 class Friendship < ApplicationRecord
   self.primary_key = 'id'
 
-  before_create { self.id = user.id + friend.id }
+  validates :user, presence: true
+  validates :friend, presence: true, uniqueness: { scope: :user }
+  validate :irreflexiveness
 
   belongs_to :user
   belongs_to :friend, class_name: 'User'
@@ -71,5 +73,12 @@ class Friendship < ApplicationRecord
 
   def has?(other_user)
     [user, friend].include? other_user
+  end
+
+  private
+
+  def irreflexiveness
+    message = "#{user.fullname} can't be friends with #{friend.fullname}}"
+    errors.add(:friendship_is_irreflexive!, message) if user == friend
   end
 end
