@@ -19,6 +19,7 @@ class Post < ApplicationRecord
       OR author_id IN (
         SELECT friend_id FROM friendships
           WHERE user_id = ?
+          AND confirmed = true
       )", user.id, user.id])
   end
 
@@ -51,7 +52,7 @@ class Post < ApplicationRecord
   end
 
   def can_comment?(user)
-    authored_by?(user) || user.friends_with(author)
+    authored_by?(user) || user.friends_with?(author)
   end
 
   def can_edit?(user)

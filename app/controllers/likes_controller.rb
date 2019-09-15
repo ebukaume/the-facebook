@@ -4,12 +4,12 @@ class LikesController < ApplicationController
   before_action :fetch_likeable
 
   def create
-    flash[:post_notice] = current_user.like(@likeable)
+    flash[:post_notice] = Like.like_resource(@likeable, current_user)
     redirect_to back_with_anchor anchor: @likeable.id
   end
 
   def destroy
-    flash[:post_notice] = current_user.dislike(@likeable)
+    flash[:post_notice] = Like.unlike_resource(@likeable, current_user)
     redirect_to back_with_anchor anchor: @likeable.id
   end
 

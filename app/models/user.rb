@@ -32,19 +32,6 @@ class User < ApplicationRecord
     posts.create post_params
   end
 
-  def like(resource)
-    return if likes.create(likeable: resource)
-
-    'Sorry, you are not authorized to like on this resource.'
-  end
-
-  def dislike(resource)
-    like = likes.where(likeable: resource, liker: self).first
-    return if like&.destroy
-
-    'Sorry, but you never liked this post!'
-  end
-
   def friends_with?(other_user)
     Friendship.confirmed_friends(self).any? other_user
   end

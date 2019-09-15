@@ -23,7 +23,7 @@ class Friendship < ApplicationRecord
                   IN ( SELECT friendships.friend_id
                         FROM friendships
                         WHERE friendships.user_id = ?
-                        AND confirmed = TRUE
+                        AND confirmed = true
                       );", user.id, other_user.id])
       .map(&:friend)
   end
@@ -59,7 +59,7 @@ class Friendship < ApplicationRecord
   def self.confirm_friendship(user, friendship_id)
     friendship = find_by(id: friendship_id)
     return 'Sorry, such friendship does not exist!' if friendship.nil?
-    return 'Sorry, you are not authorized to perform this action!' unless friendship.friend == user
+    return "Only #{friendship.friend.fullname} can confirm this friend request!" unless friendship.friend == user
     return 'Sorry, this friendship has already been confirmed' if friendship.confirmed?
 
     transaction do
