@@ -20,7 +20,7 @@
           <%= post.content %>
         </div>
       </div>
-      <div class='interactions pb-2'>
+      <div class='interactions interaction-stats pb-2'>
         <% if liked?(post) %>
           <span><%= image_tag 'likes.jpg', alt: 'likes', size: 20 %> <span class='text-secondary'><%= post.likes.size %></span></span>
         <% end %>

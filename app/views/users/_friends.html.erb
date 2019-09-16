@@ -2,30 +2,22 @@
   <div class='card'>
     <div class='card-body'>
       <div class='header mb-2'>
-        <%= link_to raw("<i class='fas fa-user-friends mr-2'> </i>Friends"), '#' %>
-        <span class="text-secondary">&nbsp;41 Mutual Friends</span>
+        <a href= <%= friends_path(user: @user) %> > <%= icon('fas', 'user-friends', class: 'mr-1') %> Friends &nbsp;</a>
+        <% unless current_user == @user %>        
+          <span class="text-secondary">(<%= link_to pluralize(mutual_count, 'Mutual Friend'), mutual_friends_path(user: @user) %>)</span>
+        <% end %>
       </div>
       <div class='row'>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
-        <div class='friends-gallery col-sm-4 my-1'>
-          <%= image_tag @user.image, class:"img-fluid", title: @user.fullname %>
-          <%= link_to @user.fullname, @user %>
-        </div>
+        <% if object.any? %>
+          <% object.each do |friend| %>
+            <div class='friends-gallery col-sm-4 my-1'>
+              <%= image_tag image_src_for(friend), class:"img-fluid", title: friend.fullname %>
+              <%= link_to friend.fullname, friend %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= content_tag :div, 'No Friends Yet', class: 'mx-auto my-2' %>
+        <% end %>
       </div>
     <div>
   <div>

@@ -19,6 +19,7 @@ Metrics/ClassLength:
   Max: 150
 Metrics/BlockLength:
   ExcludedMethods: ['describe']
+  Exclude: ['spec/factories.rb']
 
 Style/Documentation:
   Enabled: false

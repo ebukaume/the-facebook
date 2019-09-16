@@ -19,6 +19,15 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
+  def save_referrer
+    session[:edit_ref] = request.referrer
+  end
+
+  def back_with_anchor(anchor: '')
+    dest = request[:action] == 'update' ? session[:edit_ref] : request.referrer
+    "#{dest}##{anchor}"
+  end
+
   protected
 
   def configure_permitted_parameters

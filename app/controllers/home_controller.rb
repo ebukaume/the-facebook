@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   def load_home_page_resources
     if user_signed_in?
       @post = Post.new
-      @posts = Post.visible_to_user
+      @posts = Post.visible_to_user current_user
       @comment = Comment.new
     else
       @user = User.new

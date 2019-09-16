@@ -40,8 +40,24 @@ module ApplicationHelper
   end
 
   def normalize_comment_for_edit(comment, post)
-    return comment if comment.post == post
+    return comment if comment && comment.post == post
 
     Comment.new
+  end
+
+  def user_friendship_request(user, dir = :sent)
+    sender = current_user
+    receiver = user
+    sender, receiver = receiver, sender if dir == :received
+
+    sender.friendships.where(friend: receiver).first
+  end
+
+  def friend_requests
+    Friendship.pending_requests current_user
+  end
+
+  def friends(user)
+    Friendship.confirmed_friends(user)
   end
 end

@@ -6,6 +6,9 @@ RSpec.describe Post do
   let(:post) { FactoryBot.create(:post) }
 
   it { is_expected.to validate_presence_of(:content) }
+  it { belong_to(:user) }
+  it { have_many(:likes) }
+  it { have_many(:comments) }
 
   it 'is valid post if it has at least two character length content' do
     expect(post).to be_valid

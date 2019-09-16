@@ -21,6 +21,8 @@ class User < ApplicationRecord
   has_many :comments, foreign_key: 'author_id', dependent: :destroy
   has_many :likes, foreign_key: 'liker_id', dependent: :destroy
   has_many :posts, foreign_key: 'author_id', dependent: :destroy
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships
 
   def fullname
     "#{first_name} #{last_name}"
@@ -30,22 +32,28 @@ class User < ApplicationRecord
     posts.create post_params
   end
 
-  def like(resource)
-    return if likes.create(likeable: resource)
-
-    'Sorry, you are not authorized to like on this resource.'
+  def friends_with?(other_user)
+    Friendship.confirmed_friends(self).any? other_user
   end
 
-  def dislike(resource)
-    like = likes.where(likeable: resource, liker: self).first
-    return if like&.destroy
-
-    'Sorry, but you never liked this post!'
+  def sent_request_to?(other_user)
+    Friendship.pending_friends(self).any? other_user
   end
 
-  def friends_with(other_user)
-    # to be done in friendship milestone
-    other_user.is_a? User
+  def received_request_from?(other_user)
+    Friendship.pending_requests(self).any? other_user
+  end
+
+  def request_friendship(user_id)
+    other_user = User.find_by(id: user_id)
+    return 'The user you wish to send request to does not exist!' if other_user.nil?
+    return "Sorry, you can't send friend request to yourself" if self == other_user
+    return "You are already friends with #{other_user.fullname}!" if friends_with? other_user
+    return "You already sent friend request to #{other_user.fullname}" if sent_request_to? other_user
+    return "You seem to already have a pending request from #{other_user.fullname}" if received_request_from? other_user
+
+    friendships.create(friend: other_user)
+    "Friend request successfully sent to #{other_user.fullname}"
   end
 
   private

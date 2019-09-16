@@ -5,9 +5,9 @@
         <div class=' mb-3 ml-4 col-sm-3'>
           <%= image_tag "#{@user.image}?s=150", class: 'rounded-circle', alt: "user" %>
         </div>
-        <%= link_to @user.fullname, @user, class: 'align-self-end mb-5 col' %>
-        <div class='align-self-end offset-sm-1 mb-5'>
-          <%= render 'users/friendship_button' %>
+        <%= link_to @user.fullname, @user, class: 'align-self-end mb-5 col-sm-3' %>
+        <div class='align-self-end mb-5 col-sm-5'>
+          <%= render 'shared/friendship_button', object: @user unless current_user == @user%>
         </div>
       </div>
     </section>

@@ -2,8 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Like, type: :model do
+RSpec.describe Like do
   let(:like) { FactoryBot.build(:like) }
+
+  it { belong_to(:post) }
+  it { belong_to(:comment) }
 
   it "is invalid when like doesn't reference a liker" do
     like_without_liker = FactoryBot.build(:like, liker_id: nil)

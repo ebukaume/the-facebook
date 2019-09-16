@@ -10,6 +10,10 @@ RSpec.describe User do
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:sex) }
   it { is_expected.to validate_presence_of(:dob) }
+  it { have_many(:likes) }
+  it { have_many(:posts) }
+  it { have_many(:comments) }
+  it { have_many(:friendships) }
 
   it 'is a valid user' do
     expect(new_user).to be_valid

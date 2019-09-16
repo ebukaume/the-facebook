@@ -14,17 +14,18 @@ class PostsController < ApplicationController
 
   def edit
     @comment = Comment.new
+    save_referrer
     render 'home/index'
   end
 
   def update
     flash[:post_notice] = @post.update_post(current_user, post_params)
-    redirect_to root_path anchor: @post
+    redirect_to back_with_anchor anchor: @post.id
   end
 
   def destroy
     flash[:post_notice] = @post.delete_post(current_user)
-    redirect_to root_path
+    redirect_back fallback_location: root_path
   end
 
   private
@@ -34,7 +35,7 @@ class PostsController < ApplicationController
     if @post.errors.none?
       flash[:post_notice] = 'Post successfuly created!'
       @post = Post.new
-      redirect_to root_path
+      redirect_back fallback_location: root_path
     else
       render 'home/index'
     end
@@ -44,11 +45,11 @@ class PostsController < ApplicationController
     return if (@post = Post.find_by(id: params[:id]))
 
     flash[:post_notice] = 'Oops! the post you wish to interact with has been removed or never existed!'
-    redirect_to root_path
+    redirect_back fallback_location: root_path
   end
 
   def fetch_posts
-    @posts = Post.visible_to_user
+    @posts = Post.visible_to_user current_user
   end
 
   def post_params

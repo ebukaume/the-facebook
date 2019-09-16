@@ -16,9 +16,12 @@
  @import "font-awesome";
  @import "main";
  @import "users";
- @import "post";
+ @import "posts";
  
  body{
    background: #e9ebee;
  }
  
+ .unread{
+   color: white;
+ }

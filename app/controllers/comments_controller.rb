@@ -4,28 +4,34 @@ class CommentsController < ApplicationController
   def create
     fetch_resource(:post)
     flash[:post_notice] = @post.create_comment(current_user, comment_params)
-    redirect_to root_path anchor: @post
+    redirect_to back_with_anchor anchor: @post.id
   end
 
   def edit
     fetch_resource(:comment)
     @post = Post.new
     @posts = Post.all
+    save_referrer
     render 'home/index'
   end
 
   def update
-    unless (resource = fetch_resource(:comment)).is_a? String
-      flash[:post_notice] = resource.update_comment(current_user, comment_params)
+    if (resource = fetch_resource(:comment)).is_a? String
+      flash[:post_notice] = resource
+      redirect_back(fallback_location: root_path) && return
     end
-    redirect_to root_path anchor: @comment
+    flash[:post_notice] = resource.update_comment(current_user, comment_params)
+    @comment = Comment.new
+    redirect_to back_with_anchor anchor: resource.id
   end
 
   def destroy
-    unless (resource = fetch_resource(:comment)).is_a? String
-      flash[:post_notice] = resource.delete_comment(current_user)
+    if (resource = fetch_resource(:comment)).is_a? String
+      flash[:post_notice] = resource
+      redirect_back(fallback_location: root_path) && return
     end
-    redirect_to root_path anchor: resource.post
+    flash[:post_notice] = resource.delete_comment(current_user)
+    redirect_to back_with_anchor anchor: resource.post.id
   end
 
   private
