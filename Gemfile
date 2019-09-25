@@ -40,8 +40,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.3.1'
 gem 'devise'
 gem 'faker'
+gem 'figaro'
 gem 'font-awesome-sass', '~> 5.9.0'
 gem 'jquery-rails'
+gem 'omniauth-facebook'
 gem 'sassc-rails', '>= 2.1.0'
 
 group :development, :test do

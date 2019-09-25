@@ -26,7 +26,7 @@ development:
   database: the-facebook_development
   username: rails_dev
   host: localhost
-  password: <%= ENV['RAILS_DEV_PASSWORD'] %>
+  password: <%= ENV.fetch('RAILS_DEV_PASSWORD') %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

@@ -2,7 +2,7 @@
 
 The project, the final project in the rails course, is part of a series of projects to be completed by students of [Microverse](https://www.microverse.org/ "The Global School for Remote Software Developers!").
 
-The-facebook is a collaborative project by [Denis Cuenca Brex](https://github.com/DenisCuencaBrex) and [Ebuka Umeokonkwo](https://github.com/ebukaume). In this project, we try to implement the basic functionalities of [Facebook](https://web.facebook.com "American online social media and social networking service company based in Menlo Park, California").
+The-facebook  started as collaborative project by [Denis Cuenca Brex](https://github.com/DenisCuencaBrex) and [Ebuka Umeokonkwo](https://github.com/ebukaume), but [Denis Cuenca Brex](https://github.com/DenisCuencaBrex) dropped out along the line due to issues with his computer system. In this project, we try to implement the basic functionalities of [Facebook](https://web.facebook.com "American online social media and social networking service company based in Menlo Park, California").
 
 ## Technologies
 
@@ -12,6 +12,8 @@ The-facebook is a collaborative project by [Denis Cuenca Brex](https://github.co
 - Bootstrap 4x
 
 ## Usage
+
+The live version of the webapp can be found [here](https://the-facebook-rails.herokuapp.com)
 
 > Clone the repository to your local machine
 
