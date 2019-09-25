@@ -46,6 +46,12 @@ $ http://localhost:3000/
 4. Push to the branch (git push origin feature/[chosen-name])
 5. Create a new Pull Request
 
+## To-Do
+
+1. Implement media upload - Active Storage
+2. Implement real-time posts, comments and likes updates - Action Cable
+3. Integrate mail notification - Action Mailer
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
