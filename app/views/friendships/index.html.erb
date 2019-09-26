@@ -1,0 +1,40 @@
+<div class='container'>
+  <div class='mb-3'>
+    <%= render 'users/banner' %>
+  </div>
+  <div class='row'>
+    <div class='col-md-10'>
+      <div class='card'>
+        <div class='card-header'>
+        <% if action_name == 'mutual_friends' %>
+          <span> <%= pluralize(@mutuals.size, 'Mutual Friend') %> </span>
+          <span class="text-secondary">(<%= link_to pluralize(@friends.size, 'Friend'), friends_path(user: @user) %>)</span>
+        <% else %>
+          <span> <%= pluralize(@friends.size, 'Friend') %> </span>
+          <% unless @user == current_user %>
+            <span class="text-secondary">(<%= link_to pluralize(@mutuals.size, 'Mutual Friend'), mutual_friends_path(user: @user) %>)</span>
+          <% end %>
+        <% end %>
+        </div>
+        <div class='card-body row'>
+
+        <% if action_name == 'index' && @friends.any? %>
+          <% @friends.each do |user| %>
+            <%= render 'users/user', user: user %>
+          <% end %>
+        <% elsif action_name == 'mutual_friends' && @mutuals.any? %>
+          <% @mutuals.each do |user| %>
+            <%= render 'users/user', user: user %>
+          <% end %>
+        <% else %>
+          <div class='well mx-auto'>
+            <h5>No friends yet</h5>
+            <small><%= link_to 'Go make some friends', users_path %></small>
+          </div>
+        <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class='container'>
+  <div class='row my-4'>
+    <div class='col-md-10 mx-auto'>
+      <div class='card'>
+        <div class='card-header'>
+          <% if action_name == 'requests_sent' %>
+            <div> Friend requests Sent </div>
+            <small> <%= link_to 'View Received Requests', friend_requests_path %> </small>
+          <% else %>
+            <% if @friends.any? %>
+              <div> Respond to your <%= pluralize(@friends.size, 'friend request') %> </div>
+            <% end %>
+            <small> <%= link_to 'View Sent Requests', friend_requests_sent_path %> </small>
+          <% end %>
+        </div>
+        <div class='card-body row'>
+        <% if @friends.any? %>
+          <%= render @friends %>
+        <% else %>
+          <div class='well mx-auto'>
+            <h5>No friend requests at the moment</h5>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

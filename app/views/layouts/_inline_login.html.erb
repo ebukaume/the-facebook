@@ -1,0 +1,23 @@
+<div class="navbar-nav ml-auto">
+  <%= form_tag(user_session_path, method: :post, class: "form-inline float-right pt-2") do %>
+    <div class='form-row'>
+      <div class="col">
+          <div>
+            <%= label_tag :user_email, 'Email', class: 'float-left inline-form-label' %>
+          </div>
+          <%= email_field_tag 'user[email]', '', class: 'form-control-xs' %>
+      </div>
+      <div class="col">
+          <div>
+            <%= label_tag :user_password, 'Password', class: 'float-left inline-form-label' %>
+          </div>
+          <%= password_field_tag 'user[password]', '', class: 'form-control-xs' %>
+          <%= link_to 'Forgot Password?', '#', class: 'forgot-password' %>
+      </div> 
+      <div class='col mt-4'>
+        <%= button_tag "Log In", class:"btn btn-primary btn-sm inline-form-button" %>
+      </div>
+    </div>
+  <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, class: 'btn btn-primary btn-sm' %>
+  <%end%>
+</div>
