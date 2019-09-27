@@ -9,9 +9,9 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
-  scope :authored_by?, ->(user) { where(author: user) }
+  scope :authored_by, ->(user) { where(author: user).order('updated_at DESC') }
 
-  default_scope -> { order('updated_at DESC').includes(:author, :comments, :likes) }
+  default_scope -> { includes(:author, :comments, :likes) }
 
   def self.visible_to_user(user)
     find_by_sql(["SELECT * FROM posts
@@ -19,8 +19,8 @@ class Post < ApplicationRecord
       OR author_id IN (
         SELECT friend_id FROM friendships
           WHERE user_id = ?
-          AND confirmed = true
-      )", user.id, user.id])
+          AND confirmed = true)
+      ORDER BY posts.updated_at DESC", user.id, user.id])
   end
 
   def delete_post(user)
