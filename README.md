@@ -17,7 +17,7 @@
 <br>
 
 <p>
-  <a href="https://bookstore-react-redux.herokuapp.com" target="_blank">
+  <a href="https://the-facebook-rails.herokuapp.com/" target="_blank">
     <img alt="Website" src="./docs/facebook.png" />
   </a>
 </p>
