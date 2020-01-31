@@ -1,4 +1,28 @@
-# The Facebook
+<h1 align="center">The Facebook</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/ebukaume/the-facebook#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/ebukaume/the-facebook/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/ebukaume/the-facebook/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/ebukaume/the-facebook" />
+  </a>
+  <a href="https://twitter.com/ebukaume" target="_blank">
+    <img alt="Twitter: ebukaume" src="https://img.shields.io/twitter/follow/ebukaume.svg?style=social" />
+</p>
+
+<br>
+
+<p>
+  <a href="https://bookstore-react-redux.herokuapp.com" target="_blank">
+    <img alt="Website" src="./docs/facebook.png" />
+  </a>
+</p>
+
+<br>
 
 The project, the final project in the rails course, is part of a series of projects to be completed by students of [Microverse](https://www.microverse.org/ "The Global School for Remote Software Developers!").
 
@@ -55,3 +79,8 @@ $ http://localhost:3000/
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
+
+## Contact me
+
+I am looking for my next opportunity. Reach out to me if you are looking to hire!
+_ebukaume@gmail.com_
